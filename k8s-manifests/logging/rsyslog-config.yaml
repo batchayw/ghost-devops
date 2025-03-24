@@ -1,0 +1,7 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: rsyslog-config
+data:
+  rsyslog.conf: |
+    *.* @192.168.43.189:514
