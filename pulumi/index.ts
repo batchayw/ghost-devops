@@ -14,7 +14,17 @@ const ghostDeployment = new k8s.apps.v1.Deployment("ghost-deployment", {
             ports: [{ containerPort: 2368 }],
             env: [
               { name: "url", value: "http://192.168.43.189:30080" }
-            ]
+            ],
+            resources: {
+              requests: {
+                cpu: "200m",
+                memory: "256Mi"
+              },
+              limits: {
+                cpu: "500m",
+                memory: "512Mi"
+              }
+            }
           }
         ]
       }
@@ -23,9 +33,19 @@ const ghostDeployment = new k8s.apps.v1.Deployment("ghost-deployment", {
 });
 
 const ghostService = new k8s.core.v1.Service("ghost-service", {
+  metadata: {
+    labels: { app: "ghost" },
+    annotations: {
+      "prometheus.io/scrape": "true",
+      "prometheus.io/port": "2368",
+      "prometheus.io/path": "/metrics"
+    }
+  },
   spec: {
     selector: { app: "ghost" },
-    ports: [{ port: 80, targetPort: 2368 }],
+    ports: [
+      { port: 80, targetPort: 2368, name: "http" }
+    ],
     type: "NodePort"
   }
 });
