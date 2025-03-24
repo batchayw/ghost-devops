@@ -1,0 +1,5 @@
+# Peut être étendue selon vos besoins
+
+jenkins:
+  systemMessage: "Ghost DevOps Pipeline"
+
