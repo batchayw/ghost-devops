@@ -1,11 +1,13 @@
 apiVersion: monitoring.coreos.com/v1
-kind: Prometheus
+kind: ServiceMonitor
 metadata:
-  name: prometheus
+  name: ghost-monitor
+  labels:
+    app: ghost
 spec:
-  serviceMonitorSelector:
+  selector:
     matchLabels:
       app: ghost
-  resources:
-    requests:
-      memory: "400Mi"
+  endpoints:
+  - port: http
+    path: /metrics
