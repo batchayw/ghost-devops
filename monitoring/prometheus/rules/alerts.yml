@@ -1,0 +1,10 @@
+groups:
+- name: ghost-alerts
+  rules:
+  - alert: GhostDown
+    expr: up{job="ghost"} == 0
+    for: 5m
+    labels:
+      severity: critical
+    annotations:
+      summary: "Ghost instance down"
