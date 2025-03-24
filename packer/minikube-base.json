@@ -1,0 +1,28 @@
+{
+    "builders": [
+      {
+        "type": "qemu",
+        "iso_url": "https://releases.ubuntu.com/22.04/ubuntu-22.04.3-live-server-amd64.iso",
+        "iso_checksum": "sha256:f8e3086f3cea0fb3fefb29937ab5ed9d19e767079633960ccb50e76153effc98",
+        "disk_size": "20G",
+        "memory": 2048,
+        "cpus": 2,
+        "ssh_username": "ubuntu",
+        "ssh_password": "ubuntu",
+        "ssh_timeout": "20m",
+        "boot_command": [
+          "<enter><wait><f6><esc><wait>",
+          "autoinstall ds=nocloud-net;s=http://{{ .HTTPIP }}:{{ .HTTPPort }}/ ",
+          "<enter>"
+        ],
+        "http_directory": "packer/scripts",
+        "accelerator": "kvm"
+      }
+    ],
+    "provisioners": [
+      {
+        "type": "shell",
+        "script": "packer/scripts/setup.sh"
+      }
+    ]
+  }
