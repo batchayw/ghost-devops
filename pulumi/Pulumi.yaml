@@ -1,0 +1,3 @@
+name: ghost-devops
+runtime: nodejs
+description: Infrastructure for Ghost on Kubernetes
