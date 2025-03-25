@@ -1,0 +1,15 @@
+{
+    "dashboard": {
+      "panels": [
+        {"type": "graph", "title": "CPU Usage", "targets": [{"expr": "100 - (avg by (instance) (irate(node_cpu_seconds_total{mode=\"idle\"}[5m])) * 100)", "legendFormat": "{{instance}}"}]},
+        {"type": "graph", "title": "Memory Usage", "targets": [{"expr": "node_memory_MemTotal_bytes - node_memory_MemAvailable_bytes", "legendFormat": "{{instance}}"}]},
+        {"type": "graph", "title": "Disk Space Usage", "targets": [{"expr": "node_filesystem_size_bytes - node_filesystem_free_bytes", "legendFormat": "{{instance}}"}]},
+        {"type": "graph", "title": "Disk I/O", "targets": [{"expr": "irate(node_disk_read_bytes_total[5m])", "legendFormat": "Read {{instance}}"}, {"expr": "irate(node_disk_written_bytes_total[5m])", "legendFormat": "Write {{instance}}"}]},
+        {"type": "graph", "title": "System Load", "targets": [{"expr": "node_load1", "legendFormat": "1m Load {{instance}}"}, {"expr": "node_load5", "legendFormat": "5m Load {{instance}}"}, {"expr": "node_load15", "legendFormat": "15m Load {{instance}}"}]},
+        {"type": "graph", "title": "Hardware Temperature", "targets": [{"expr": "node_hwmon_temp_celsius", "legendFormat": "{{instance}}"}]},
+        {"type": "graph", "title": "Network Traffic", "targets": [{"expr": "irate(node_network_receive_bytes_total[5m])", "legendFormat": "Received {{instance}}"}, {"expr": "irate(node_network_transmit_bytes_total[5m])", "legendFormat": "Transmitted {{instance}}"}]},
+        {"type": "graph", "title": "Network Latency", "targets": [{"expr": "avg by (instance) (node_network_receive_packets_total - node_network_transmit_packets_total)", "legendFormat": "{{instance}}"}]},
+        {"type": "graph", "title": "Network Errors", "targets": [{"expr": "irate(node_network_receive_errs_total[5m])", "legendFormat": "Receive Errors {{instance}}"}, {"expr": "irate(node_network_transmit_errs_total[5m])", "legendFormat": "Transmit Errors {{instance}}"}]}
+      ]
+    }
+  }
